@@ -1,0 +1,130 @@
+<?php 
+include('header.php');
+
+$sql = "SELECT * FROM rooms where id='".$_GET['roomid']."'";
+$query= mysqli_query($con,$sql);
+$total=mysqli_fetch_assoc($query);
+//echo '<pre>';print_r($total);
+
+
+if(isset($_POST['submit'])){
+/*$to = "rahul.webguruz97@gmail.com";
+$subject = "My subject";
+$txt = '<div class="container">
+  <p><b>Name: '.$_POST['fname'].'</b></p>
+  <p><b>Guest: '.$_POST['guest'].'</b></p>
+  <p><b>room: '.$_POST['room'].'</b></p>
+  <p><b>Price: '.$total['room_price'].'</b></p>
+  <p><b>Location: '.$total['location'].'</b></p>
+</div>';
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+$headers = "From: royalhotel.com" . "\r\n" .
+"CC: rahulphp1@netfrux.com";
+
+if(mail($to,$subject,$txt,$headers)){
+
+  echo 'Success';
+}else{
+  echo 'Failed';
+}*/
+
+$to = 'rahul.webguruz97@gmail.com';
+
+$subject = 'Room Booking Request';
+
+$headers = "From: " . strip_tags('sania') . "\r\n";
+$headers .= "Reply-To: ". strip_tags('sania@gmail.com') . "\r\n";
+$headers .= "CC: sania@gmail.com\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+$message = '<div class="container">
+  <p><b>Name: '.$_POST['fname'].'</b></p>
+  <p><b>Guest: '.$_POST['guest'].'</b></p>
+  <p><b>room: '.$_POST['room'].'</b></p>
+  <p><b>Price: '.$total['room_price'].'</b></p>
+  <p><b>Location: '.$total['location'].'</b></p>
+</div>';
+
+
+if(mail($to, $subject, $message, $headers)){
+    
+    //echo 'dddddddddd';
+    
+}else{
+    //echo 'rrrrrrrrrrrrr';
+}
+ 
+}
+
+ ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://fonts.googleapis.com/css?family=Inconsolata&text=%c2%a1Hola!"></script>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="col-sm-6">
+  	<img src="images/<?=$total['image']?>" style="width: 70%;">
+  	<br>
+  	 <div class="all_c">
+  		<span class="location"><strong>Location : </strong><?=$total['location']?></span><br>
+  		<span class="room_wifi"><strong>Wifi : </strong><?=$total['room_wifi']?></span><br> 
+  		<span class="room_ac"><strong>A.C : </strong><?=$total['room_ac']?></span><br>
+      <span class="room_price"><strong>Price : </strong><?=$total['room_price']?></span><br>
+  		<span class="decription"><strong>Description : </strong><?=$total['decription']?></span>
+  	 </div>
+    </div>
+    <div class="col-sm-6 form">
+  	<div class="form">
+  		<form action="" method="POST">
+  			<h2>Booking Form</h2>
+  			<div class="form-group">
+  				<label class="name">Name</label>
+  				<input type="text" name="fname" Placeholder="Name" class="form-control">
+  			</div>
+  			<div class="form-group">
+  				<label class="name">Guest</label>
+  				<select name="guest" class="form-control">
+  					<option value="1">Guest 1</option>
+  					<option value="2">Guest 2</option>
+  					<option value="3">Guest 3</option>
+  				</select>
+  			</div>
+        <div class="form-group">
+          <label class="name">Room</label>
+          <select name="room" class="form-control">
+            <option value="1">Room 1</option>
+            <option value="2">Room 2</option>
+            <option value="3">Room 3</option>
+          </select>
+        </div>
+  			<input type="submit" name="submit" value="Submit" class="btn btn-success">
+  		</form>
+
+  	</div>
+  </div>
+  </div>
+   </div>
+ 
+<style>
+.all_c {
+    padding: 23px;
+}
+.col-sm-6.form {
+    background-color: #dfdedd;
+    padding: 15px;
+}
+</style>
+</body>
+</html>
